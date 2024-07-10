@@ -2,8 +2,25 @@
 module.exports = {
   content: ["./templates/**/*.{html,js,gohtml}"],
   theme: {
-    extend: {},
+    extend: {
+      scrollbar: {
+        hide: 'scrollbar-width: none; -ms-overflow-style: none; &::-webkit-scrollbar { display: none; }',
+      },
+    },
   },
-  plugins: [],
-}
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.scrollbar-hide': {
+          'scrollbar-width': 'none', /* Firefox */
+          '-ms-overflow-style': 'none',  /* IE и Edge */
+          '&::-webkit-scrollbar': {
+            display: 'none', /* Chrome, Safari и Opera */
+          },
+        },
+      }
+
+      addUtilities(newUtilities)
+    }
+  ],}
 
